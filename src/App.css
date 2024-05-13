@@ -1,7 +1,16 @@
 .App {
   text-align: center;
 }
+.all{
+  display:flex;
+}
 
+.users{
+  width: 50vw;
+}
+.posts{
+  width: 50vw;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
