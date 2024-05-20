@@ -1,35 +1,20 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {useForm} from "react-hook-form";
-import {userValidator} from "../validators/User.Validator";
-
+import {postValidator} from "../validators/Post.Validator";
 import {joiResolver} from "@hookform/resolvers/joi";
-interface IFormProps {
-    title:string,
-    body:string,
-    userId:number,
-}
+import {IPostModel} from "../models/IPostModel";
+import {postService} from "../services/json.api.services";
+import {IFormModel} from "../models/IFormModel";
  export const FormComponent: FC = () => {
     let {register,
         handleSubmit,
-         formState:{errors}} = useForm<IFormProps>({
-        mode:"onSubmit",
-        resolver:joiResolver(userValidator)
+         formState:{errors}} = useForm<IFormModel>({
+        mode:"all",
+        resolver:joiResolver(postValidator)
     })
-
-    const save = (formV:IFormProps) => {
-        fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            body: JSON.stringify({
-                title:formV.title,
-                body:formV.body,
-                userId:formV.userId,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((json) => console.log(json));
+const [post,setPost] = useState<IPostModel | null>(null)
+    const save = (post : IFormModel) => {
+        postService.savePost(post).then((value) => setPost(value.data));
     }
     return (
         <div>
@@ -45,6 +30,8 @@ interface IFormProps {
                 <br/>
                 <button>save</button>
             </form>
+            <h2>{post?.id}{post?.title}</h2>
+            <p>{post?.body}</p>
         </div>
     );
 };

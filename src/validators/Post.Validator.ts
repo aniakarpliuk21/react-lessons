@@ -1,19 +1,19 @@
 import Joi from "joi";
 
-export const userValidator = Joi.object({
+export const postValidator = Joi.object({
     title:Joi
         .string()
         .pattern(/^[a-z0-9 _-]{1,100}$/)
         .required()
         .messages({
-            "string.required.base":"This field is required"
+            "string.required":"This field is required"
         }),
     body:Joi
         .string()
         .pattern(/^[a-z0-9 _-]+$/)
         .required()
         .messages({
-            "string.required.base":"This field is required"
+            "string.required":"This field is required"
         }),
     userId:Joi
         .number()
