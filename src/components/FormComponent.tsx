@@ -5,6 +5,7 @@ import {joiResolver} from "@hookform/resolvers/joi";
 import {IPostModel} from "../models/IPostModel";
 import {postService} from "../services/json.api.services";
 import {IFormModel} from "../models/IFormModel";
+import PostComponent from "./PostComponent";
  export const FormComponent: FC = () => {
     let {register,
         handleSubmit,
@@ -30,8 +31,7 @@ const [post,setPost] = useState<IPostModel | null>(null)
                 <br/>
                 <button>save</button>
             </form>
-            <h2>{post?.id}{post?.title}</h2>
-            <p>{post?.body}</p>
+            {post && <PostComponent key={post.id} post={post}/>}
         </div>
     );
 };
