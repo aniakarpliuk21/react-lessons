@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {IUserModel} from "../../models/IUserModel";
-import {commentServise, userServise} from "../../services/jsph.Services";
+import {commentServise} from "../../services/comment.services";
 import CommentComponent from "./CommentComponent";
 import {ICommentModel} from "../../models/ICommentModel";
 import './Comment.css'

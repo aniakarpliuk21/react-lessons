@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import {IUserModel} from "../../models/IUserModel";
-import {userServise} from "../../services/jsph.Services";
+import {userServise} from "../../services/user.services";
 import UserComponent from "./UserComponent";
 
 const UsersComponent:FC = () => {

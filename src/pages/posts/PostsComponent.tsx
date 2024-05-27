@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {postServise} from "../../services/jsph.Services";
+import {postServise} from "../../services/post.services";
 import {IPostModel} from "../../models/IPostModel";
 import PostComponent from "./PostComponent";
 
