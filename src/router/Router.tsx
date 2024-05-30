@@ -1,13 +1,10 @@
 import React from "react";
 import {createBrowserRouter} from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import DefaultPage from "../pages/default/DefaultPage";
 import ErrorLayout from "../layouts/error/ErrorLayout";
-import UsersPage from "../pages/users/UsersPage";
-import PostsPage from "../pages/posts/PostsPage";
-import CommentsPage from "../pages/comments/CommentsPage";
-import UserPostsPage from "../pages/usersPost/UserPostsPage";
-import PostCommentsPage from "../pages/PostComments/PostCommentsPage";
+import AuthPage from "../pages/auth/AuthPage";
+import CarsPage from "../pages/cars/CarsPage";
+
 export const router = createBrowserRouter([
     {
         path:'/',
@@ -15,30 +12,12 @@ export const router = createBrowserRouter([
         errorElement:<ErrorLayout/>,
         children:[
             {
-                element:<DefaultPage/>,
-                index:true
-            },
+                index: true,
+                element:<AuthPage/>},
             {
-                path:'users',
-                element:<UsersPage/>
-            },
-            {
-                path:'users/:id',
-                element:<UserPostsPage/>
-            },
-            {
-                path:'posts',
-                element:<PostsPage/>
-            },
-            {
-                path:'posts/:id',
-                element:<PostCommentsPage/>
-            },
-            {
-                path:'comments',
-                element:<CommentsPage/>
+                path:'cars',
+                element:<CarsPage/>
             }
         ]
     }
-
 ]);
