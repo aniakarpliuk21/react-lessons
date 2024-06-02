@@ -6,9 +6,10 @@ import CarsComponent from "./CarsComponent";
 const CarsPage:FC = () => {
     const [items, setItems] = useState<ICarWithAuthModel[]>([])
     useEffect(() => {
-        carService.getCars().then((data) => setItems(data!.items)
+        carService.getCars().then((data) => {
+            if(items){setItems(items)}}
         )
-    }, []);
+    }, [items]);
     return (
         <div>
             <CarsComponent items={items}/>

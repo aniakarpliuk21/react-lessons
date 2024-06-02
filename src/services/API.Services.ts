@@ -33,7 +33,7 @@ const authService = {
 }
 
 const carService = {
-    getCars : async () => {
+    getCars : async ():Promise<ICarPaginatedModel | undefined > => {
         try {
             const response = await axiosInstance.get<ICarPaginatedModel>('/cars');
             return response.data;
