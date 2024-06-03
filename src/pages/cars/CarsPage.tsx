@@ -1,18 +1,25 @@
 import React, {FC, useEffect, useState} from 'react';
 import {carService} from "../../services/API.Services";
-import {ICarWithAuthModel} from "../../models/ICarWithAuthModel";
 import CarsComponent from "./CarsComponent";
+import {ICarPaginatedModel} from "../../models/ICarPaginatedModel";
 
 const CarsPage:FC = () => {
-    const [items, setItems] = useState<ICarWithAuthModel[]>([])
+    const [cars, setCars] = useState<ICarPaginatedModel>({
+        items:[],
+        next:null,
+        prev:null,
+        total_items:0,
+        total_pages:0
+    })
     useEffect(() => {
-        carService.getCars().then((data) => {
-            if(items){setItems(items)}}
+        carService.getCars().then((value) => {
+            if(value){
+                setCars(value)}}
         )
-    }, [items]);
+    }, []);
     return (
         <div>
-            <CarsComponent items={items}/>
+            <CarsComponent items={cars.items}/>
         </div>
     );
 };
