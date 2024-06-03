@@ -1,0 +1,21 @@
+.header{
+    height: 10%;
+    background-color:black;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.header>span>a{
+    color:white;
+    text-decoration: none;
+    margin: 10px;
+}
+.header>span>a:hover{
+    text-decoration:underline;
+    color: deepskyblue;
+}
+.header>span>a[class='active']{
+    background-color:red;;
+}
