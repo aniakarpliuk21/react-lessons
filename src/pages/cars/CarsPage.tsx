@@ -1,10 +1,15 @@
 import React, {FC, useEffect, useState} from 'react';
-import {carService} from "../../services/API.Services";
+import {authService, carService} from "../../services/API.Services";
 import CarsComponent from "./CarsComponent";
 import {ICarPaginatedModel} from "../../models/ICarPaginatedModel";
+import PaginationComponent from "../../components/pagination/PaginationComponent";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {AxiosError} from "axios";
 
 const CarsPage:FC = () => {
-    const [cars, setCars] = useState<ICarPaginatedModel>({
+    const navigate = useNavigate();
+    const [query,setQuery]=useSearchParams();
+    const [carsPaginatedObject, setCarsPaginatedObject] = useState<ICarPaginatedModel>({
         items:[],
         next:null,
         prev:null,
@@ -12,14 +17,34 @@ const CarsPage:FC = () => {
         total_pages:0
     })
     useEffect(() => {
-        carService.getCars().then((value) => {
-            if(value){
-                setCars(value)}}
-        )
-    }, []);
+        const getCarsData = async () =>{
+           try {
+               const response = await carService.getCars(query.get('page') || '1');
+               if(response){
+                   setCarsPaginatedObject(response)
+               }
+           }catch (e) {
+               const axiosError =  e as AxiosError
+               if(axiosError && axiosError?.response?.status === 401){
+                   try{
+                       await authService.refresh()
+                   }catch (e) {
+                       return navigate('/')
+
+                   }
+                   const response = await carService.getCars(query.get('page') || '1')
+                   if(response){
+                       setCarsPaginatedObject(response);
+                   }
+               }
+           }
+        }
+        getCarsData();
+    }, [navigate,query]);
     return (
         <div>
-            <CarsComponent items={cars.items}/>
+            <CarsComponent cars={carsPaginatedObject.items}/>
+            <PaginationComponent prev={carsPaginatedObject.prev} next={carsPaginatedObject.next}/>
         </div>
     );
 };

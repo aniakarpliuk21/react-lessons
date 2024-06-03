@@ -1,0 +1,10 @@
+.prev{
+    position: fixed;
+    bottom: 4vh;
+    right: 50vw;
+}
+.next{
+    position: fixed;
+    bottom:4vh;
+    left:50vw;
+}
