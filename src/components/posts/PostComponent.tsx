@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 import {IPostModel} from "../../models/IPostModel";
 import './Post.css'
-import {useContextProvider} from "../../context/ContextProvider";
+import {useStore} from "../../store/Store";
 interface IProps{
     post:IPostModel
 }
 const PostComponent:FC<IProps> = ({post}) => {
-    const {postStore:{setFavoritePost}} = useContextProvider();
+    const {postStore:{setFavoritePost}} = useStore();
     return (
         <div className={'post'}>
             <h3>{post.id} {post.title}</h3>
