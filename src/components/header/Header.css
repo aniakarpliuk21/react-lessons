@@ -17,5 +17,12 @@
     color: deepskyblue;
 }
 .header>span>a[class='active']{
-    background-color:red;;
+    background-color:red;
+}
+.favoriteUser{
+    background-color:red;
+    margin: 5px;
+}
+.favoritePost{
+    background-color: deepskyblue;
 }

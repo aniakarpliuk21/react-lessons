@@ -13,30 +13,39 @@ const MainLayout = () => {
     const [users,setUsers] = useState<IUserModel[]>([]);
     const [posts,setPosts] = useState<IPostModel[]>([]);
     const [comments,setComments] = useState<ICommentModel[]>([]);
-
+    const [favoriteUserState, setFavoriteUserState] = useState<IUserModel | null>(null);
+    const [favoritePostState, setFavoritePostState] = useState<IPostModel | null>(null);
     useEffect(() => {
         userService.getUsers().then(value =>setUsers(value.data));
         postService.getPosts().then(value =>setPosts(value.data));
         commentService.getComments().then(value =>setComments(value.data));
     }, []);
+
+    const liftUser = (objUser:IUserModel) => {setFavoriteUserState(objUser)}
+    const liftPost = (objPost:IPostModel) => {setFavoritePostState(objPost)}
     return (
         <div>
             <MyContext.Provider value={
                 {
                     userStore:{
-                        allUsers:users
+                        allUsers:users,
+                        setFavoriteUser:(objUser:IUserModel)=>{liftUser(objUser)}
                     },
                     postStore:{
-                        allPosts:posts
+                        allPosts:posts,
+                        setFavoritePost:(objPost:IPostModel)=>{liftPost(objPost)}
                     },
                     commentStore:
                         {allComments:comments
                         }
                 }}>
-            <HeaderComponent/>
+            <HeaderComponent favoriteUser={favoriteUserState} favoritePost={favoritePostState}/>
             <Outlet/>
             <FooterComponent/>
             </MyContext.Provider>
+
+
+
         </div>
     );
 };
