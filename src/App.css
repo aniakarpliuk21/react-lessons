@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+.value{
+  text-align: center;
+}
+.value>button{
+  width: 200px;
+  height: 30px;
+  margin: 5px;
+  background-color:cornflowerblue;
+  border-radius: 10px;
+}
